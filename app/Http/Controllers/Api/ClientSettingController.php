@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\ClientSettingsRequest;
+use App\Http\Requests\ClientSettingRequest;
 use App\Http\Services\UserService;
 use App\Http\Services\ClientSettingService;
 
@@ -26,16 +26,18 @@ class ClientSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ClientSettingsRequest $request)
+    public function store(ClientSettingRequest $request)
     {
-        $createdClient = $this->userService->store($request->only(['name', 'email', 'password']));        
+        $createdClient = $this->userService->store($request->only(['firstname', 'lastname', 'email', 'password']));        
 
         $settingsRequest = [
             'user_id' => $createdClient->id,
             'data' => json_encode($request->except(['firstname', 'lastname', 'email', 'password']))
         ];
 
-        return $this->clientSettingService->store($settingsRequest);
+        $this->clientSettingService->store($settingsRequest);
+
+        return $createdClient->load('settings');
     }
 
     /**

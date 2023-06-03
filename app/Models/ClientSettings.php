@@ -11,7 +11,8 @@ class ClientSettings extends Model
     use HasFactory;
 
     protected $table = 'client_settings';
-
+    protected $guarded = [];
+    
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

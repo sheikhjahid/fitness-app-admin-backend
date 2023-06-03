@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Models\ClientSettings as Model;
 
 
-class ClientSettingsService {
+class ClientSettingService {
 
     public function __construct(protected Model $model) {}
 
