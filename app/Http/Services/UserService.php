@@ -32,15 +32,8 @@ class UserService
         ];
     }
 
-   
-
-  
-
-   
-
-   
-
- 
-
-   
+    public function list()
+    {
+        return $this->model->whereNotIn('is_admin',[1])->get();
+    } 
 }
